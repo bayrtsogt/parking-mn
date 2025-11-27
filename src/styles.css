@@ -1,0 +1,262 @@
+/* Layout */
+.app-container {
+  display: flex;
+  height: 100vh;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+  sans-serif;
+}
+
+/* Sidebar */
+.sidebar {
+  width: 320px;
+  background: #f3f4f6;
+  padding: 20px;
+  border-right: 1px solid #d1d5db;
+  overflow-y: auto;
+}
+
+.sidebar h2 {
+  margin-bottom: 10px;
+}
+
+.sidebar-subtitle {
+  font-size: 13px;
+  color: #4b5563;
+  margin-bottom: 16px;
+}
+
+.panel-section {
+  margin-bottom: 18px;
+}
+
+.panel-section label {
+  display: block;
+  font-size: 13px;
+  margin-bottom: 4px;
+  color: #374151;
+}
+
+.panel-section select {
+  width: 100%;
+  padding: 8px;
+  border-radius: 6px;
+  border: 1px solid #d1d5db;
+  font-size: 14px;
+  background: white;
+}
+
+.inline-fields {
+  display: flex;
+  justify-content: space-between;
+  font-size: 13px;
+  color: #374151;
+}
+
+.primary-btn,
+.upgrade-btn,
+.danger-btn {
+  width: 100%;
+  padding: 10px;
+  border-radius: 6px;
+  border: none;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.primary-btn {
+  background: #2563eb;
+  color: white;
+}
+
+.primary-btn:hover {
+  background: #1d4ed8;
+}
+
+.upgrade-btn {
+  background: #10b981;
+  color: white;
+}
+
+.upgrade-btn:hover {
+  background: #059669;
+}
+
+.danger-btn {
+  background: #dc2626;
+  color: white;
+}
+
+.danger-btn:hover {
+  background: #b91c1c;
+}
+
+.free-warning {
+  padding: 10px;
+  background: #fef3c7;
+  border-radius: 5px;
+  margin-bottom: 15px;
+  font-size: 13px;
+  color: #92400e;
+}
+
+/* Stats */
+.stats-summary h3 {
+  margin: 0 0 8px;
+  font-size: 14px;
+}
+
+.stats-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 13px;
+  margin-bottom: 4px;
+}
+
+/* Map wrapper */
+.map-wrapper {
+  position: relative;
+  flex: 1;
+}
+
+/* Top toolbar */
+.draw-toolbar {
+  position: absolute;
+  top: 14px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 5000;
+  display: flex;
+  gap: 8px;
+}
+
+.draw-toolbar button {
+  background: white;
+  padding: 6px 10px;
+  border-radius: 6px;
+  border: 1px solid #d1d5db;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.draw-toolbar button:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+/* Map stats overlay */
+.map-stats {
+  position: absolute;
+  bottom: 16px;
+  left: 16px;
+  z-index: 4000;
+  background: rgba(31, 41, 55, 0.9);
+  color: white;
+  padding: 10px 12px;
+  border-radius: 8px;
+  font-size: 12px;
+  min-width: 180px;
+}
+
+.map-stats-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 2px;
+}
+
+/* Legend */
+.map-legend {
+  position: absolute;
+  bottom: 16px;
+  right: 16px;
+  z-index: 4000;
+  background: rgba(249, 250, 251, 0.95);
+  padding: 8px 10px;
+  border-radius: 8px;
+  font-size: 12px;
+  color: #111827;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.map-legend > div {
+  display: flex;
+  align-items: center;
+  margin-bottom: 4px;
+}
+
+.legend-color {
+  display: inline-block;
+  width: 16px;
+  height: 4px;
+  margin-right: 6px;
+  border-radius: 999px;
+}
+
+.legend-boundary {
+  background: #2563eb;
+}
+
+.legend-lane {
+  background: #6b7280;
+}
+
+.legend-slot {
+  background: #22c55e;
+}
+
+.legend-dot {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  margin-right: 6px;
+}
+
+.legend-entrance {
+  background: #22c55e;
+}
+
+.legend-exit {
+  background: #ef4444;
+}
+.map-wrapper {
+  position: relative;
+  flex: 1;
+}
+
+/* DRAW TOOLBAR */
+.draw-toolbar {
+  position: absolute;
+  top: 14px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 5000;
+  display: flex;
+  gap: 8px;
+}
+
+.draw-toolbar button {
+  background: white;
+  padding: 6px 10px;
+  border-radius: 6px;
+  border: 1px solid #d1d5db;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+/* MAP STATS */
+.map-stats {
+  position: absolute;
+  bottom: 16px;
+  left: 16px;
+  z-index: 4000;
+  background: rgba(31, 41, 55, 0.9);
+  color: white;
+  padding: 10px 12px;
+  border-radius: 8px;
+  font-size: 12px;
+}
+
+.map-stats-row {
+  display: flex;
+  justify-content: space-between;
+}
