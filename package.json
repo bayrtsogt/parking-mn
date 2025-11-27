@@ -9,18 +9,19 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@turf/helpers": "^6.5.0",
-    "@turf/boolean-within": "^6.5.0",
+    "@turf/area": "^6.5.0",
     "@turf/bbox-polygon": "^6.5.0",
     "@turf/boolean-intersects": "^6.5.0",
+    "@turf/boolean-within": "^6.5.0",
     "@turf/buffer": "^6.5.0",
-    "@turf/transform-rotate": "^6.5.0",
     "@turf/centroid": "^6.5.0",
-    "@turf/area": "^6.5.0",
-    "@turf/line-offset": "^6.5.0",
-    "@turf/line-intersect": "^6.5.0",
-    "@turf/line-slice-along": "^6.5.0",
     "@turf/distance": "^6.5.0",
+    "@turf/helpers": "^6.5.0",
+    "@turf/intersect": "^7.3.1",
+    "@turf/line-intersect": "^6.5.0",
+    "@turf/line-offset": "^6.5.0",
+    "@turf/line-slice-along": "^6.5.0",
+    "@turf/transform-rotate": "^6.5.0",
     "jsts": "^2.11.0",
     "leaflet": "^1.9.4",
     "leaflet-draw": "^1.0.4",
@@ -32,6 +33,6 @@
   },
   "devDependencies": {
     "@vitejs/plugin-react": "^4.2.1",
-    "vite": "^5.3.1"
+    "vite": "^6.4.1"
   }
 }

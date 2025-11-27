@@ -1,33 +1,15 @@
-import React, { useState } from 'react';
-import { useParkingStore } from '../state/useParkingStore.js';
+// src/components/PaymentModal.jsx
+import React from "react";
+import { useParkingStore } from "../state/useParkingStore.js";
 
-const PaymentModal = ({ onClose }) => {
-  const { unlock } = useParkingStore();
-  const [processing, setProcessing] = useState(false);
+export default function PaymentModal() {
+  // Хэрэв дараа нь төлбөртэй горимын popup нэмж хөгжүүлэх бол эндээс үргэлжилнэ.
+  // Одоохондоо UI дээр зөвхөн sidebar-н "Бүрэн газрын зураг нээх" товч paidMode-г true болгодог.
+  const { paidMode } = useParkingStore();
 
-  const handlePay = () => {
-    setProcessing(true);
-    setTimeout(() => {
-      unlock();
-      setProcessing(false);
-      onClose();
-    }, 600);
-  };
+  if (paidMode) {
+    return null;
+  }
 
-  return (
-    <div className="modal-backdrop">
-      <div className="modal">
-        <h2>Unlock full drawing</h2>
-        <p>One-time unlock for global drawing access. This is a sandboxed, client-side payment simulation.</p>
-        <button onClick={handlePay} disabled={processing}>
-          {processing ? 'Processing…' : 'Pay & Unlock'}
-        </button>
-        <button className="outline" style={{ marginTop: 8 }} onClick={onClose}>
-          Cancel
-        </button>
-      </div>
-    </div>
-  );
-};
-
-export default PaymentModal;
+  return null;
+}

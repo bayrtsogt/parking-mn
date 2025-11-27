@@ -1,95 +1,37 @@
-import React, { useEffect, useMemo, useRef } from 'react';
-import { FeatureGroup, useMap } from 'react-leaflet';
-import { EditControl } from 'react-leaflet-draw';
-import bboxPolygon from '@turf/bbox-polygon';
-import booleanWithin from '@turf/boolean-within';
-import { useParkingStore } from '../state/useParkingStore.js';
-import { UVURKHANGAI_BBOX, ensureWithinBounds } from '../utils/geometry.js';
+import React from "react";
+import { useParkingStore } from "../state/useParkingStore.js";
 
-const DrawToolbar = () => {
-  const featureGroupRef = useRef(null);
-  const map = useMap();
-  const {
-    unlocked,
-    setPolygon,
-    setWarning,
-    clearWarning,
-    parkingPolygon,
-    resetLayout
-  } = useParkingStore();
+export default function DrawToolbar() {
+    const { optimizeLayout, boundary, isComputing } = useParkingStore();
 
-  const bbox = useMemo(() => bboxPolygon(UVURKHANGAI_BBOX), []);
+    const zoomIn = () => {
+        const map = window.__parkingMap;
+        map && map.setZoom(map.getZoom() + 1);
+    };
 
-  useEffect(() => {
-    map.invalidateSize();
-  }, [map]);
+    const zoomOut = () => {
+        const map = window.__parkingMap;
+        map && map.setZoom(map.getZoom() - 1);
+    };
 
-  const enforceBounds = (geojson) => {
-    if (!unlocked) {
-      const inside = booleanWithin(geojson, bbox);
-      if (!inside) {
-        setWarning('Drawing must stay inside the Arvaikheer sandbox.');
-        return false;
-      }
-    }
-    clearWarning();
-    return true;
-  };
+    const fit = () => {
+        const map = window.__parkingMap;
+        if (map && boundary) {
+            const g = L.geoJSON(boundary);
+            map.fitBounds(g.getBounds(), { padding: [40, 40] });
+        }
+    };
 
-  const handleCreated = (e) => {
-    const layer = e.layer;
-    const geojson = layer.toGeoJSON();
-    if (!enforceBounds(geojson)) {
-      featureGroupRef.current?.removeLayer(layer);
-      return;
-    }
-    resetLayout();
-    setPolygon(geojson);
-  };
-
-  const handleEdited = (e) => {
-    const { layers } = e;
-    layers.eachLayer((layer) => {
-      const geojson = layer.toGeoJSON();
-      if (enforceBounds(geojson)) {
-        resetLayout();
-        setPolygon(geojson);
-      }
-    });
-  };
-
-  const handleDeleted = () => {
-    resetLayout();
-    setPolygon(null);
-  };
-
-  useEffect(() => {
-    if (!unlocked && parkingPolygon) {
-      const clamped = ensureWithinBounds(parkingPolygon, UVURKHANGAI_BBOX);
-      if (clamped) {
-        setPolygon(clamped);
-      }
-    }
-  }, [parkingPolygon, setPolygon, unlocked]);
-
-  return (
-    <FeatureGroup ref={featureGroupRef}>
-      <EditControl
-        position="topleft"
-        onCreated={handleCreated}
-        onEdited={handleEdited}
-        onDeleted={handleDeleted}
-        draw={{
-          rectangle: false,
-          circle: false,
-          circlemarker: false,
-          marker: false,
-          polyline: false,
-          polygon: { allowIntersection: false, showArea: true }
-        }}
-      />
-    </FeatureGroup>
-  );
-};
-
-export default DrawToolbar;
+    return (
+        <div className="draw-toolbar">
+            <button onClick={zoomIn}>＋</button>
+            <button onClick={zoomOut}>－</button>
+            <button onClick={fit} disabled={!boundary}>
+                Тааруулах
+            </button>
+            <button onClick={optimizeLayout} disabled={!boundary || isComputing}>
+                {isComputing ? "Тооцоо…" : "Зогсоол тооцоолох"}
+            </button>
+        </div>
+    );
+}

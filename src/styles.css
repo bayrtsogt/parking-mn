@@ -1,136 +1,262 @@
-:root {
-  font-family: 'Inter', system-ui, -apple-system, sans-serif;
-  color: #0f172a;
-  background-color: #f8fafc;
-}
-
-body {
-  margin: 0;
-  padding: 0;
-  background: #f1f5f9;
-}
-
-#root {
+/* Layout */
+.app-container {
   display: flex;
   height: 100vh;
-  width: 100vw;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+  sans-serif;
 }
 
-.app-shell {
-  display: grid;
-  grid-template-columns: 360px 1fr;
-  grid-template-rows: 1fr;
-  width: 100%;
-}
-
+/* Sidebar */
 .sidebar {
+  width: 320px;
+  background: #f3f4f6;
   padding: 20px;
-  background: white;
-  box-shadow: 4px 0 12px rgba(0, 0, 0, 0.06);
+  border-right: 1px solid #d1d5db;
   overflow-y: auto;
 }
 
-.sidebar h1 {
-  margin-top: 0;
-  margin-bottom: 12px;
+.sidebar h2 {
+  margin-bottom: 10px;
+}
+
+.sidebar-subtitle {
+  font-size: 13px;
+  color: #4b5563;
+  margin-bottom: 16px;
 }
 
 .panel-section {
-  margin-bottom: 16px;
-  padding-bottom: 12px;
-  border-bottom: 1px solid #e2e8f0;
+  margin-bottom: 18px;
 }
 
 .panel-section label {
   display: block;
-  margin-bottom: 8px;
-  font-weight: 600;
+  font-size: 13px;
+  margin-bottom: 4px;
+  color: #374151;
 }
 
-.panel-section input,
-.panel-section select,
-.panel-section button {
+.panel-section select {
   width: 100%;
-  padding: 10px;
-  border-radius: 8px;
-  border: 1px solid #cbd5e1;
+  padding: 8px;
+  border-radius: 6px;
+  border: 1px solid #d1d5db;
   font-size: 14px;
-  box-sizing: border-box;
-}
-
-.panel-section button {
-  background: #2563eb;
-  color: white;
-  border: none;
-  cursor: pointer;
-  font-weight: 700;
-}
-
-.panel-section button.secondary {
-  background: #10b981;
-}
-
-.panel-section button.outline {
   background: white;
-  color: #0f172a;
-  border: 1px solid #1e293b;
 }
 
-.notice {
-  background: #fef3c7;
-  color: #92400e;
-  border: 1px solid #f59e0b;
+.inline-fields {
+  display: flex;
+  justify-content: space-between;
+  font-size: 13px;
+  color: #374151;
+}
+
+.primary-btn,
+.upgrade-btn,
+.danger-btn {
+  width: 100%;
   padding: 10px;
   border-radius: 6px;
-  margin-bottom: 12px;
+  border: none;
+  font-size: 14px;
+  cursor: pointer;
 }
 
+.primary-btn {
+  background: #2563eb;
+  color: white;
+}
+
+.primary-btn:hover {
+  background: #1d4ed8;
+}
+
+.upgrade-btn {
+  background: #10b981;
+  color: white;
+}
+
+.upgrade-btn:hover {
+  background: #059669;
+}
+
+.danger-btn {
+  background: #dc2626;
+  color: white;
+}
+
+.danger-btn:hover {
+  background: #b91c1c;
+}
+
+.free-warning {
+  padding: 10px;
+  background: #fef3c7;
+  border-radius: 5px;
+  margin-bottom: 15px;
+  font-size: 13px;
+  color: #92400e;
+}
+
+/* Stats */
+.stats-summary h3 {
+  margin: 0 0 8px;
+  font-size: 14px;
+}
+
+.stats-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 13px;
+  margin-bottom: 4px;
+}
+
+/* Map wrapper */
 .map-wrapper {
-  width: 100%;
-  height: 100vh;
-}
-
-.layer-legend {
-  display: flex;
-  gap: 8px;
-  align-items: center;
-  font-size: 12px;
-  color: #334155;
-}
-
-.layer-swatch {
-  width: 12px;
-  height: 12px;
-  border-radius: 2px;
-}
-
-.modal-backdrop {
-  position: fixed;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.4);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 1000;
-}
-
-.modal {
-  background: white;
-  padding: 20px;
-  border-radius: 12px;
-  box-shadow: 0 18px 48px rgba(0, 0, 0, 0.15);
-  width: 360px;
-}
-
-.modal h2 {
-  margin-top: 0;
-}
-
-.toggle-row {
-  display: flex;
-  gap: 8px;
-}
-
-.toggle-row button {
+  position: relative;
   flex: 1;
+}
+
+/* Top toolbar */
+.draw-toolbar {
+  position: absolute;
+  top: 14px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 5000;
+  display: flex;
+  gap: 8px;
+}
+
+.draw-toolbar button {
+  background: white;
+  padding: 6px 10px;
+  border-radius: 6px;
+  border: 1px solid #d1d5db;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.draw-toolbar button:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+/* Map stats overlay */
+.map-stats {
+  position: absolute;
+  bottom: 16px;
+  left: 16px;
+  z-index: 4000;
+  background: rgba(31, 41, 55, 0.9);
+  color: white;
+  padding: 10px 12px;
+  border-radius: 8px;
+  font-size: 12px;
+  min-width: 180px;
+}
+
+.map-stats-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 2px;
+}
+
+/* Legend */
+.map-legend {
+  position: absolute;
+  bottom: 16px;
+  right: 16px;
+  z-index: 4000;
+  background: rgba(249, 250, 251, 0.95);
+  padding: 8px 10px;
+  border-radius: 8px;
+  font-size: 12px;
+  color: #111827;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.map-legend > div {
+  display: flex;
+  align-items: center;
+  margin-bottom: 4px;
+}
+
+.legend-color {
+  display: inline-block;
+  width: 16px;
+  height: 4px;
+  margin-right: 6px;
+  border-radius: 999px;
+}
+
+.legend-boundary {
+  background: #2563eb;
+}
+
+.legend-lane {
+  background: #6b7280;
+}
+
+.legend-slot {
+  background: #22c55e;
+}
+
+.legend-dot {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  margin-right: 6px;
+}
+
+.legend-entrance {
+  background: #22c55e;
+}
+
+.legend-exit {
+  background: #ef4444;
+}
+.map-wrapper {
+  position: relative;
+  flex: 1;
+}
+
+/* DRAW TOOLBAR */
+.draw-toolbar {
+  position: absolute;
+  top: 14px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 5000;
+  display: flex;
+  gap: 8px;
+}
+
+.draw-toolbar button {
+  background: white;
+  padding: 6px 10px;
+  border-radius: 6px;
+  border: 1px solid #d1d5db;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+/* MAP STATS */
+.map-stats {
+  position: absolute;
+  bottom: 16px;
+  left: 16px;
+  z-index: 4000;
+  background: rgba(31, 41, 55, 0.9);
+  color: white;
+  padding: 10px 12px;
+  border-radius: 8px;
+  font-size: 12px;
+}
+
+.map-stats-row {
+  display: flex;
+  justify-content: space-between;
 }
