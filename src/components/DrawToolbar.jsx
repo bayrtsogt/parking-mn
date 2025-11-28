@@ -2,35 +2,33 @@ import React from "react";
 import { useParkingStore } from "../state/useParkingStore.js";
 
 export default function DrawToolbar() {
-    const { optimizeLayout, boundary, isComputing } = useParkingStore();
-
-    const zoomIn = () => {
-        const map = window.__parkingMap;
-        map && map.setZoom(map.getZoom() + 1);
-    };
-
-    const zoomOut = () => {
-        const map = window.__parkingMap;
-        map && map.setZoom(map.getZoom() - 1);
-    };
-
-    const fit = () => {
-        const map = window.__parkingMap;
-        if (map && boundary) {
-            const g = L.geoJSON(boundary);
-            map.fitBounds(g.getBounds(), { padding: [40, 40] });
-        }
-    };
+    const {
+        boundary,
+        optimizeLayout,
+        entranceMode,
+        toggleEntranceMode,
+        entrancePoints
+    } = useParkingStore();
 
     return (
-        <div className="draw-toolbar">
-            <button onClick={zoomIn}>＋</button>
-            <button onClick={zoomOut}>－</button>
-            <button onClick={fit} disabled={!boundary}>
-                Тааруулах
+        <div className="map-top-toolbar">
+            <button
+                className={entranceMode ? "active" : ""}
+                onClick={toggleEntranceMode}
+                type="button"
+            >
+                Орох / гарах цэг тавих
+                {entrancePoints.length > 0 && ` (${entrancePoints.length}/2)`}
             </button>
-            <button onClick={optimizeLayout} disabled={!boundary || isComputing}>
-                {isComputing ? "Тооцоо…" : "Зогсоол тооцоолох"}
+
+            <button
+                disabled={!boundary}
+                className="primary-btn"
+                style={{ padding: "6px 14px" }}
+                onClick={optimizeLayout}
+                type="button"
+            >
+                Зогсоол тооцоолох
             </button>
         </div>
     );

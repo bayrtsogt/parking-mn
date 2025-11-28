@@ -1,37 +1,49 @@
-import bboxPolygon from '@turf/bbox-polygon';
-import transformRotate from '@turf/transform-rotate';
-import turfArea from '@turf/area';
-import turfCentroid from '@turf/centroid';
-import intersect from '@turf/intersect';
-import { polygon as turfPolygon } from '@turf/helpers';
+import area from "@turf/area";
+import bboxPolygon from "@turf/bbox-polygon";
+import booleanWithin from "@turf/boolean-within";
 
-// 5km x 5km bounding box centered on Arvaikheer, Mongolia.
-// [minLon, minLat, maxLon, maxLat]
-export const UVURKHANGAI_BBOX = [102.7435, 46.2405, 102.8085, 46.2855];
-
-// Build Arvaikheer 5×5km polygon
-export const buildUvurkhangaiPolygon = () => bboxPolygon(UVURKHANGAI_BBOX);
-
-// Compute polygon area in hectares
-export const polygonAreaHectares = (polygon) => {
-  return Math.round((turfArea(polygon) / 10000) * 10) / 10;
-};
-
-// Rotate polygon geometry around its centroid
-export const rotateGeometry = (geojson, angle) =>
-    transformRotate(geojson, angle, { pivot: turfCentroid(geojson) });
-
-// Restrict polygon to bounding box (FREE MODE)
-export const ensureWithinBounds = (polygon, bboxArray) => {
-  const bbox = bboxPolygon(bboxArray);
-  const poly = turfPolygon(
-      polygon.geometry ? polygon.geometry.coordinates : polygon.coordinates
-  );
-
+/**
+ * Талбайг га нэгжээр буцаана.
+ */
+export function polygonAreaHectares(geo) {
+  if (!geo) return 0;
   try {
-    const clipped = intersect(poly, bbox);
-    return clipped || polygon;
-  } catch (e) {
-    return polygon;
+    return area(geo) / 10000;
+  } catch {
+    return 0;
   }
-};
+}
+
+/**
+ * Арвайхээр орчим 5×5 км хайрцаг (үнэгүй горимд хэрэглэж болно).
+ */
+export function buildUvurkhangaiPolygon() {
+  const centerLat = 46.26;
+  const centerLng = 102.78;
+
+  const halfSizeMeters = 2500; // 2.5 км
+  const dLat = (halfSizeMeters / 111320) * 2; // нийт 5км
+  const dLng =
+      (halfSizeMeters / (111320 * Math.cos((centerLat * Math.PI) / 180))) * 2;
+
+  const bbox = [
+    centerLng - dLng / 2,
+    centerLat - dLat / 2,
+    centerLng + dLng / 2,
+    centerLat + dLat / 2
+  ];
+
+  return bboxPolygon(bbox);
+}
+
+/**
+ * Гео объектоос Арвайхээр хайрцаг дотор байгаа эсэх.
+ */
+export function isWithinUvurkhangai(feature) {
+  try {
+    const box = buildUvurkhangaiPolygon();
+    return booleanWithin(feature, box);
+  } catch {
+    return true;
+  }
+}
